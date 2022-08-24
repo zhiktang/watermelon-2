@@ -3,9 +3,10 @@ body{
     justify-content: center;
 }
 .title{
-    font-size: 50px;
+    position: absolute;
+    font-size: 200px;
     font-family: "Times New Roman";
-    color: #ffffff;
+    color: #1900ff;
     text-align: center;
     margin-top: 20px;
 }
