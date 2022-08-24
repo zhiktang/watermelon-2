@@ -18,17 +18,107 @@ public class main {
     }
 
     public static void move(int p, int s){ //a move was made in position p, move identification number s
+        int s2=0; //s2 is clone of s, flipped if palmed is true, used numerically in code; this allows next repeat to repeat the original s, not the flipped
+        if(palmed){
+            if(s==1){
+                s2=2;
+            }
+            else if(s==2){
+                s2=1;
+            }
+            else if(s==3){
+                s2=4;
+            }
+            else if(s==4){
+                s2=3;
+            }
+            else if(s==5){
+                s2=6;
+            }
+            else if(s==6){
+                s2=5;
+            }
+            else if(s==-1){
+                s2=-2;
+            }
+            else if(s==-2){
+                s2=-1;
+            }
+            else if(s==-3){
+                s2=-4;
+            }
+            else if(s==-4){
+                s2=-3;
+            }
+            else if(s==-5){
+                s2=-6;
+            }
+            else if(s==-6){
+                s2=-5;
+            }
+        }
+        else{
+            s2=s;
+        }
+
         if(p!=nextPos){
             eliminate(p);
             return;
         }
 
-        if(Math.abs(s)==1){
-            nextPos=(nextPos+1)%N;
+        if(Math.abs(s2)==5){
+            if(s2>0){
+                s2=Math.abs(lastMove);
+            }
+            else{
+                s2=-Math.abs(lastMove);
+            }
+        }
+        if(Math.abs(s2)==1){
+            nextPos=(nextPos-1)%N;
             direction=false;
+        }
+        else if(Math.abs(s2)==2){
+            nextPos=(nextPos+1)%N;
+            direction=true;
+        }
+        else if(Math.abs(s2)==3){
+            if(direction){
+                nextPos=(nextPos+2)%N;
+                direction=true;
+            }
+            else{
+                nextPos=(nextPos-2)%N;
+                direction=false;
+            }
+        }
+        else if(Math.abs(s2)==4){
+            if(direction){
+                nextPos=(nextPos-2)%N;
+                direction=false;
+            }
+            else{
+                nextPos=(nextPos+2)%N;
+                direction=true;
+            }
+        }
+        else if(Math.abs(s2)==6){
+            nextPos=lastPos;
+            if(direction){
+                direction=false;
+            }
+            else{
+                direction=true;
+            }
         }
         lastMove=s;
         lastPos=p;
+        if(lastMove<0){
+            palmed=true;
+        }
+        else{
+            palmed=false;
+        }
     }
     
     public static void start(){ //make sure first player cannot start with 3,4,5,6
