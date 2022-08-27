@@ -1,6 +1,9 @@
-.opener{
+#opener{
     background-image: url("background.jpg");
+    display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -26,6 +29,4 @@
     width: fit-content;
     border-radius: 10px;
     padding: 10px;
-    position: relative;
-    left: 50%;
 }
