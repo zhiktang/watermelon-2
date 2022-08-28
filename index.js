@@ -4,20 +4,21 @@ var status = [];
 var ongoing = false;
 // console.log(submit.id);
 var gameplay = document.getElementById('gamepage');
+var server = "server ip";
+var user = "";
 //???????????
 console.log("script works lol");
 submit.addEventListener('click', ()=> {
     console.log("join click");
-    var username = document.getElementById('username-input').value;
+    user = document.getElementById('username-input').value;
     document.getElementById('opener').style.visibility = 'hidden';
-    console.log(username);
-    document.getElementById('username-display').innerHTML = username;
+    console.log(user);
+    document.getElementById('username-display').innerHTML = user;
     // document.getElementById('sus-surround').hidden = false;
     // document.getElementById('sus').hidden = false;
     // document.getElementById('sus-surround').style.zIndex = '1';
-    joinGame(username);
+    joinGame(user);
     updateMembers();
-    initialize();
 });
 window.onbeforeunload = function() {
     leaveGame();
@@ -26,8 +27,24 @@ window.onbeforeunload = function() {
 function tick() {
     update();
 }
-function joinGame(username) {
-    //send request to server to join game
+function joinGame() {
+    console.log("joining game");
+    //make xttp request to join game
+    //make the code copilot
+    //me when copilot doesn't make the code 
+    //:(
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', server, true);
+    xhttp.setRequestHeader('Content-type', 'application/json');
+    xhttp.send(JSON.stringify({type:"joingame", username: user}));
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            var response = JSON.parse(this.responseText);
+            ongoing = response;
+            initialize();
+        }        
+    }
 }
 function initialize() {
     console.log("game in progress: " + ongoing);
@@ -42,7 +59,19 @@ function initialize() {
     }
 }
 function updateMembers() {
-    //make html request to get members names
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', server, true);
+    xhttp.setRequestHeader('Content-type', 'application/json');
+    xhttp.send(JSON.stringify({type:"updateMember"}));
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            var response = JSON.parse(this.responseText);
+            console.log(response);
+            members = response;
+            updateDisplay();
+        }        
+    }
 }
 function Eliminate(person) {
     status[memebers.indexOf(person)] = false;
@@ -73,9 +102,29 @@ function updateDisplay(){
     console.log("display updated");
 }
 function leaveGame(){
-    //send request to server to leave game
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', server, true);
+    xhttp.setRequestHeader('Content-type', 'application/json');
+    xhttp.send(JSON.stringify({type:"leavegame", username: user}));
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+        }        
+    }
     console.log("leaving game");
 }
 function update() {
-    //make html request to get status of game
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('GET', 'https://count.alhub.net', true);
+    xhttp.send();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+            var response = JSON.parse(this.responseText);
+            console.log(response);
+            members = response.members;
+            status = response.status;
+            updateDisplay();
+        }
+    }
 }
