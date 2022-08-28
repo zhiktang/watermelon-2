@@ -12,6 +12,7 @@ public class main {
     private static boolean palmed; //true if last move was palmed, false if it wasn't
     private static int lastMove; //identification number of last move
     private static int lastPos;
+    private static double lastTime; //time that last move was made
 
     public static void setN(int a){
         N=a;
@@ -19,6 +20,9 @@ public class main {
 
     public static void move(int p, int s){ //a move was made in position p, move identification number s
         int s2=0; //s2 is clone of s, flipped if palmed is true, used numerically in code; this allows next repeat to repeat the original s, not the flipped
+        if(lastMove==0&&Math.abs(s)>2){
+            eliminate(p);
+        }
         if(palmed){
             if(s==1){
                 s2=2;
@@ -121,15 +125,16 @@ public class main {
         }
     }
     
-    public static void start(){ //make sure first player cannot start with 3,4,5,6
+    public static void start(int a){ //make sure first player cannot start with 3,4,5,6
+        setN(a);
         nextPos=(int)Math.ceil(N*Math.random());
         lastMove=0;
         lastPos=0;
     }
 
     private static void eliminate(int p){ //position p eliminated
-        N = N-1;
         System.out.println("Position "+p+" was eliminated.");
+        start(N-1);
     }
 
     public static void main(String[] args) throws IOException {
