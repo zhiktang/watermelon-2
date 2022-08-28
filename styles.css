@@ -1,17 +1,118 @@
 body{
     background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: center;
+    background-color: #f2f2f2;
+    
+}
+#opener{
+    display: flex;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
-    
+    width: 100vw;
+    height: 100vh;
+    margin: 0px;
+    position:fixed;
+    top: 0px;
+    left:0px;
+    z-index: 2;
 }
 .title{
-    position: absolute;
     font-size: 200px;
     font-family: "Times New Roman";
     color: #1900ff;
     text-align: center;
     margin-top: 20px;
+}
+#username-prompt{
+    font-size: 20px;
+    font-family: "Times New Roman";
+    color: #1900ff;
+    text-align: center;
+    margin-top: 20px;
+    background-color: aliceblue;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 10px;
+    padding: 10px;
+}
+#sus-surround{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    z-index: 1;
+}
+#sus{
+    font-size: 20px;
+    font-family: "Times New Roman";
+    color: #1900ff;
+    text-align: center;
+    background-color: aliceblue;
+    height: fit-content;
+    width: fit-content;
+}
+#username-display{
+    font-size: 20px;
+    font-family: "Times New Roman";
+    color: #1900ff;
+    text-align: center;
+    margin-top: 20px;
+    background-color: aliceblue;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 10px;
+    padding: 10px;
+}
+#in-progress{
+    font-size: 100px;
+    font-family: "Times New Roman";
+    color: #1900ff;
+    text-align: center;
+    position:fixed;
+    top:0px;
+    left:0px;
+    width:100%;
+    height:100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.personDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    width: 10rem;
+    margin: 0px;
+    position:fixed;
+    top: 0px;
+    left:0px;
+    z-index: 2;
+    color: #1900ff;
+    font-size: 20px;
+    font-family: "Times New Roman";
+    text-align: center;
+    background-color: aliceblue;
+    height: fit-content;
 }
