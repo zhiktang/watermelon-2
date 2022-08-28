@@ -26,7 +26,8 @@ window.onbeforeunload = function() {
     return "we do a lil game leavin'";
 }
 function tick() {
-    update();
+    console.log("tick");
+    //update();
 }
 function joinGame() {
     console.log("joining game");
@@ -40,22 +41,27 @@ function joinGame() {
     xhttp.send(JSON.stringify({type:"joingame", username: user}));
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            console.log("join game response: " + this.responseText);
             var response = JSON.parse(this.responseText);
             ongoing = response;
             initialize();
         }        
     }
+    //test function
+    initialize();
 }
 function initialize() {
     console.log("game in progress: " + ongoing);
     if (ongoing == false) {
+        console.log("game not in progress");
         reset();
         updateDisplay();
         gameplay.hidden = false;
         gameplay.style.zIndex = '3';
+        var interval = setInterval(tick, 100);
     }
     else {
+        console.log("game in progress");
         document.getElementById('in-progress-text').hidden = false;
     }
 }
@@ -66,9 +72,9 @@ function updateMembers() {
     xhttp.send(JSON.stringify({type:"updateMember"}));
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            console.log("updateMemeber response text: " + this.responseText);
             var response = JSON.parse(this.responseText);
-            console.log(response);
+            console.log("parsed updateMember response text:" + response);
             members = response;
             updateDisplay();
         }        
@@ -112,7 +118,7 @@ function leaveGame(){
     xhttp.send(JSON.stringify({type:"leavegame", username: user}));
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            console.log("Leave Game response text: " + this.responseText);
         }        
     }
     console.log("leaving game");
@@ -123,11 +129,12 @@ function update() {
     xhttp.send();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            console.log("update response text: " + this.responseText);
             var response = JSON.parse(this.responseText);
-            console.log(response);
             members = response.members;
+            console.log("members: " + members);
             status = response.status;
+            console.log("status: " + status);
             updateDisplay();
         }
     }
@@ -139,7 +146,7 @@ function makeMove(move){
     xhttp.send(JSON.stringify({type:"makemove", username: user, move: move}));
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
-            console.log(this.responseText);
+            console.log("makeMove response text: " + this.responseText);
         }        
     }
 }
