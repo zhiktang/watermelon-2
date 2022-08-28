@@ -15,6 +15,7 @@ app.all('/', function(req, res, next) {
 );
 var memebers = [];
 var status = [];
+setInterval(serverTick, 100);
 app.get('/', function (req, res) {
     res.send(JSON.stringify({members:members, status:status}));
     console.log('GET /');
@@ -47,5 +48,8 @@ function serverLeaveGame(user) {
     //austin time
 }
 function serverMove(user, move) {
+    //austin time
+}
+function serverTick(){
     //austin time
 }
