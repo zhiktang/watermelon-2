@@ -20,8 +20,8 @@ submit.addEventListener('click', ()=> {
     initialize();
 });
 window.onbeforeunload = function() {
-    return "we do a lil game leavin'";
     leaveGame();
+    return "we do a lil game leavin'";
 }
 function tick() {
     update();
