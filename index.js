@@ -6,6 +6,7 @@ var ongoing = false;
 var gameplay = document.getElementById('gamepage');
 var server = "server ip";
 var user = "";
+var eliminated = false;
 //???????????
 console.log("script works lol");
 submit.addEventListener('click', ()=> {
@@ -86,6 +87,9 @@ function reset() {
 function updateDisplay(){
     console.log("updating display");
     gameplay.innerHTML = "";
+    var memebersDiv = document.createElement('div');
+    memebersDiv.id = "membersDiv";
+    gameplay.appendChild(memebersDiv);
     members.forEach(person => {
         var personDiv = document.createElement('div');
         personDiv.className = 'personDiv';
@@ -126,5 +130,16 @@ function update() {
             status = response.status;
             updateDisplay();
         }
+    }
+}
+function makeMove(move){
+    const xhttp = new XMLHttpRequest();
+    xhttp.open('POST', server, true);
+    xhttp.setRequestHeader('Content-type', 'application/json');
+    xhttp.send(JSON.stringify({type:"makemove", username: user, move: move}));
+    xhttp.onreadystatechange = function() {
+        if(this.readyState == 4 && this.status == 200) {
+            console.log(this.responseText);
+        }        
     }
 }
