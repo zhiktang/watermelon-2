@@ -3,7 +3,7 @@ var members = [];
 var status = [];
 var ongoing = false;
 // console.log(submit.id);
-var gamepage = document.getElementById('gamepage');
+var gameplay = document.getElementById('gamepage');
 //???????????
 console.log("script works lol");
 submit.addEventListener('click', ()=> {
