@@ -20,6 +20,7 @@ submit.addEventListener('click', ()=> {
     // document.getElementById('sus-surround').style.zIndex = '1';
     joinGame(user);
     updateMembers();
+    window.alert("Cappy");
 });
 window.onbeforeunload = function() {
     leaveGame();
