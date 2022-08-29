@@ -13,6 +13,7 @@ public class main {
     private static int lastMove; //identification number of last move
     private static int lastPos;
     private static double lastTime; //time that last move was made
+    public static int eliminated=0; //position that is eliminated; 0 if no one yet
 
     public static void setN(int a){
         N=a;
@@ -130,10 +131,12 @@ public class main {
         nextPos=(int)Math.ceil(N*Math.random());
         lastMove=0;
         lastPos=0;
+        eliminated=0;
     }
 
-    private static void eliminate(int p){ //position p eliminated
-        System.out.println("Position "+p+" was eliminated.");
+    public static void eliminate(int p){ //position p eliminated
+//        System.out.println("Position "+p+" was eliminated.");
+        eliminated=p;
         start(N-1);
     }
 
