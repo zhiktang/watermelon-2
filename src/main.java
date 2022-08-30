@@ -19,6 +19,10 @@ public class main {
         N=a;
     }
 
+    public static int getEliminated(){
+        return eliminated;
+    }
+
     public static void move(int p, int s){ //a move was made in position p, move identification number s
         int s2=0; //s2 is clone of s, flipped if palmed is true, used numerically in code; this allows next repeat to repeat the original s, not the flipped
         if(lastMove==0&&Math.abs(s)>2){
