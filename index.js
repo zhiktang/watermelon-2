@@ -151,3 +151,12 @@ function makeMove(move){
         }        
     }
 }
+function vibeCheck() {
+    if (status[members.indexOf(user)] == false) {
+        console.log("you are eliminated");
+        eliminated = true;
+    }
+    document.getElementById('cappy').hidden = false;
+    document.getElementById('cappy').style.zIndex = '4';
+    window.alert("You have been cappy'd");
+}
