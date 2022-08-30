@@ -1,0 +1,20 @@
+{
+  "name": "watermelon-1",
+  "version": "1.0.0",
+  "description": "cappy",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhiktang/watermelon.gi 0-bt"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/zhiktang/watermelon/issues"
+  },
+  "homepage": "https://github.com/zhiktang/watermelon#readme"
+}

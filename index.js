@@ -20,6 +20,7 @@ submit.addEventListener('click', ()=> {
     // document.getElementById('sus-surround').style.zIndex = '1';
     joinGame(user);
     updateMembers();
+    window.alert("Cappy");
 });
 window.onbeforeunload = function() {
     leaveGame();
@@ -149,4 +150,13 @@ function makeMove(move){
             console.log("makeMove response text: " + this.responseText);
         }        
     }
+}
+function vibeCheck() {
+    if (status[members.indexOf(user)] == false) {
+        console.log("you are eliminated");
+        eliminated = true;
+    }
+    document.getElementById('cappy').hidden = false;
+    document.getElementById('cappy').style.zIndex = '4';
+    window.alert("You have been cappy'd");
 }
