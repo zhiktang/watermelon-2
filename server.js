@@ -1,5 +1,8 @@
 var bodyParser = require('body-parser');
 var express = require('express');
+var java = require('java');
+java.classpath.push("jar file goes here");
+var server = java.newInstanceSync("server");
 const fs = require('fs');
 var app = express();
 var date = new Date();
@@ -41,15 +44,5 @@ app.post('/', function (req, res) {
     }
 }
 );
-function serverJoinGame(user) {
-    //austin time
-}
-function serverLeaveGame(user) {
-    //austin time
-}
-function serverMove(user, move) {
-    //austin time
-}
-function serverTick(){
-    //austin time
-}
+var test = java.callMethodSync("server", "getEliminated");
+console.log(test);
