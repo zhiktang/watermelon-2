@@ -140,11 +140,11 @@ function update() {
         }
     }
 }
-function makeMove(move){
+function makeMove(move,flip){
     const xhttp = new XMLHttpRequest();
     xhttp.open('POST', server, true);
     xhttp.setRequestHeader('Content-type', 'application/json');
-    xhttp.send(JSON.stringify({type:"makemove", username: user, move: move}));
+    xhttp.send(JSON.stringify({type:"makemove", username: user, move: move, flip: flip}));
     xhttp.onreadystatechange = function() {
         if(this.readyState == 4 && this.status == 200) {
             console.log("makeMove response text: " + this.responseText);
