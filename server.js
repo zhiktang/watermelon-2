@@ -6,7 +6,7 @@ var date = new Date();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.all('/', function(req, res, next) {
+app.all('/', function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
     res.header("Access-Control-Allow-headers", "Content-Type");
@@ -14,7 +14,7 @@ app.all('/', function(req, res, next) {
 }
 );
 app.get('/', function (req, res) {
-    res.send(JSON.stringify({members:members, status:status}));
+    res.send(JSON.stringify({ members: members, status: status }));
     console.log('GET /');
 });
 app.post('/', function (req, res) {
@@ -28,13 +28,21 @@ app.post('/', function (req, res) {
         var user = req.body.username;
         serverLeaveGame(user);
     }
-    else if (req.body.type =="updateMembers") {
-        res.send(JSON.stringify({members:memebers}));
+    else if (req.body.type == "updateMembers") {
+        res.send(JSON.stringify({ members: memebers }));
     }
     else if (req.body.type == "makemove") {
         var user = req.body.username;
         var move = req.body.move;
-        serverMove(user, move, flip);
+        var flip = req.body.flip;
+        if (watermelon != members.indexOf(user)) {
+            serverELiminate(members.indexOf(user));
+            //send request back
+        }
+        else {
+            serverMove(user, move, flip);
+            clearTimeout(timeout);
+        }
     }
 }
 );
@@ -43,7 +51,6 @@ var status = [];
 var watermelon = 0;
 var direction = 0;
 var lastMoving = 0; //not actual last moving, for use for repeat, does not include flip
-var lastMoveTime = 0;
 var gameStarted = false;
 var membersInGame = [];
 var flipped = true;
@@ -69,7 +76,7 @@ function serverLeaveGame(user) {
         console.log("User not in game");
     }
 }
-function serverStartGame(){
+function serverStartGame() {
     gameStarted = true;
     numberPlaying = members.length;
     watermelon = 0;
@@ -78,41 +85,39 @@ function serverStartGame(){
 
 }
 // -1 is flipped, 1 is move cw, 2 is upskip, 3 is repeat
-function serverMove(user, move, flip){
+function serverMove(user, move, flip) {
     var moving = 0;
-    if(user != members.indexOf(user)){
-        serverELiminate(members.indexOf(user));
-        //send request back
+    if (move == 1) {
+        moving = 1;
+        direction = 1;
     }
-    else{
-        if(move == 1){
-            moving = 1;
-            direction = 1;
-        }
-        else if(move == -1){
-            moving = -1;
-            direction = -1;
-        }
-        else if(move == 2){
-            moving = 2 * direction;
-        }
-        else if(move == -2){
-            moving = -2 * direction;
-        }
-        else if(move == 3){
-            moving = lastMoving;
-        }
-        else if(move == 3){
-            moving = lastMoving * -1;
-        }
-        lastMoving = moving;
-        if(flip){
-            moving *= -1;
-        }
-        watermelon = (watermelon + moving) % numberPlaying;
+    else if (move == -1) {
+        moving = -1;
+        direction = -1;
     }
+    else if (move == 2) {
+        moving = 2 * direction;
+    }
+    else if (move == -2) {
+        moving = -2 * direction;
+    }
+    else if (move == 3) {
+        moving = lastMoving;
+    }
+    else if (move == 3) {
+        moving = lastMoving * -1;
+    }
+    lastMoving = moving;
+    if (flip) {
+        moving *= -1;
+    }
+    watermelon = (watermelon + moving) % numberPlaying;
+    serverTimeout(watermelon);
 }
-function serverELiminate(user){
-    status[user]=1
-    membersInGame.splice(user,1);
+function serverELiminate(user) {
+    status[user] = 1
+    membersInGame.splice(user, 1);
+}
+function serverTimeout(user) {
+    var timeout = setTimeout(serverELiminate(user), 2000);
 }
