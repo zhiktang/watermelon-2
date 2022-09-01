@@ -40,7 +40,7 @@ app.post('/', function (req, res) {
             //send request back
         }
         else {
-            serverMove(user, move, flip);
+            serverMove(move, flip);
             clearTimeout(timeout);
         }
     }
@@ -85,7 +85,7 @@ function serverStartGame() {
 
 }
 // -1 is flipped, 1 is move cw, 2 is upskip, 3 is repeat
-function serverMove(user, move, flip) {
+function serverMove(move, flip) {
     var moving = 0;
     if (move == 1) {
         moving = 1;
@@ -108,9 +108,10 @@ function serverMove(user, move, flip) {
         moving = lastMoving * -1;
     }
     lastMoving = moving;
-    if (flip) {
+    if (flipped) {
         moving *= -1;
     }
+    flipped = flip;
     watermelon = (watermelon + moving) % numberPlaying;
     serverTimeout(watermelon);
 }
